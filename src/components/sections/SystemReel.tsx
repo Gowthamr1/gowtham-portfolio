@@ -63,7 +63,8 @@ const nodes = [
 export const SystemReel: React.FC = () => {
   const reelRef = useRef<HTMLElement>(null);
   const [progress, setProgress] = useState(0);
-  const activeFrame = Math.min(frames.length - 1, Math.floor(progress * frames.length));
+  const [manualFrame, setManualFrame] = useState<number | null>(null);
+  const activeFrame = manualFrame !== null ? manualFrame : Math.min(frames.length - 1, Math.floor(progress * frames.length));
   const frame = frames[activeFrame];
 
   useEffect(() => {
@@ -83,6 +84,7 @@ export const SystemReel: React.FC = () => {
     };
 
     const handleScroll = () => {
+      setManualFrame(null);
       if (!request) request = window.requestAnimationFrame(update);
     };
 
@@ -138,7 +140,18 @@ export const SystemReel: React.FC = () => {
             <div className="system-reel__readout"><strong>{String(Math.round(progress * 100)).padStart(2, '0')}</strong><span>scroll<br />progress</span></div>
             <div className="system-reel__steps">
               {frames.map((item, index) => (
-                <span key={item.eyebrow} className={index === activeFrame ? 'is-active' : ''}><b>0{index + 1}</b>{item.eyebrow}</span>
+                <span
+                  key={item.eyebrow}
+                  className={index === activeFrame ? 'is-active' : ''}
+                  onClick={() => {
+                    sound.playClick();
+                    setManualFrame(index);
+                  }}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <b>0{index + 1}</b>{item.eyebrow}
+                </span>
               ))}
             </div>
           </div>

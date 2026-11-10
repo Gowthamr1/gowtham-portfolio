@@ -129,44 +129,44 @@ export const InteractiveSeatMap: React.FC = () => {
   };
 
   return (
-    <div className="rounded-xl border border-cyan-500/30 bg-[#0b0f19] p-5 text-slate-100">
+    <div className="rounded-xl border border-cyan-500/30 bg-[#0b0f19] p-3.5 sm:p-5 text-slate-100 max-w-full overflow-hidden">
       {/* Simulation Header */}
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4 mb-4">
-        <div>
+      <div className="flex flex-wrap items-center justify-between gap-2.5 sm:gap-3 border-b border-white/10 pb-3 sm:pb-4 mb-4">
+        <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
-            <span className="relative flex h-2 w-2">
+            <span className="relative flex h-2 w-2 shrink-0">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
             </span>
-            <h4 className="font-mono text-sm font-semibold tracking-wide text-cyan-300">
+            <h4 className="font-mono text-xs sm:text-sm font-semibold tracking-wide text-cyan-300 truncate">
               Interactive Concurrency & WebSocket Seat Simulator
             </h4>
           </div>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-[11px] sm:text-xs text-slate-400 mt-0.5 line-clamp-2">
             Test the real-time collision prevention engine built across Daphne + Django Channels
           </p>
         </div>
 
         <button
           onClick={resetSimulation}
-          className="flex items-center gap-1.5 px-2.5 py-1 text-xs font-mono rounded bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 transition-colors"
+          className="flex items-center gap-1.5 px-2.5 py-1 text-xs font-mono rounded bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 transition-colors shrink-0"
           title="Reset Simulation"
         >
           <RefreshCw className="w-3 h-3 text-cyan-400" />
-          <span>Reset State</span>
+          <span>Reset</span>
         </button>
       </div>
 
       {/* Movie Screen Indicator */}
-      <div className="mb-6 flex flex-col items-center">
-        <div className="w-3/4 h-1.5 rounded-full bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_12px_rgba(6,182,212,0.8)]" />
-        <span className="text-[10px] font-mono tracking-widest uppercase text-slate-400 mt-1.5">
+      <div className="mb-5 sm:mb-6 flex flex-col items-center">
+        <div className="w-3/4 max-w-xs h-1 sm:h-1.5 rounded-full bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_12px_rgba(6,182,212,0.8)]" />
+        <span className="text-[9px] sm:text-[10px] font-mono tracking-widest uppercase text-slate-400 mt-1.5">
           Cinema Projection Screen
         </span>
       </div>
 
       {/* Seat Grid */}
-      <div className="grid grid-cols-8 gap-2 sm:gap-3 max-w-sm mx-auto mb-6">
+      <div className="grid grid-cols-8 gap-1 sm:gap-2.5 max-w-[340px] sm:max-w-sm mx-auto mb-5 sm:mb-6">
         {seats.map((seat) => {
           let seatStyle = 'bg-slate-800/80 border-slate-700 text-slate-400 hover:border-cyan-400 hover:text-cyan-200';
           if (seat.state === 'selected') {
@@ -183,7 +183,7 @@ export const InteractiveSeatMap: React.FC = () => {
               onClick={() => handleSeatClick(seat.id)}
               aria-label={`Seat ${seat.id}, ${seat.state}`}
               aria-pressed={seat.state === 'selected'}
-              className={`h-9 sm:h-10 rounded-md border text-xs font-mono flex items-center justify-center transition-all duration-200 ${seatStyle}`}
+              className={`h-7 sm:h-9 sm:h-10 rounded border text-[10px] sm:text-xs font-mono flex items-center justify-center transition-all duration-200 select-none ${seatStyle}`}
               title={`Seat ${seat.id} (${seat.state})`}
             >
               {seat.id}
@@ -193,47 +193,47 @@ export const InteractiveSeatMap: React.FC = () => {
       </div>
 
       {/* Legend & Active Hold Status */}
-      <div className="flex flex-wrap items-center justify-between gap-4 p-3 rounded-lg bg-slate-900/60 border border-white/5 text-xs font-mono mb-4">
-        <div className="flex flex-wrap items-center gap-3">
+      <div className="flex flex-wrap items-center justify-between gap-2.5 sm:gap-4 p-2.5 sm:p-3 rounded-lg bg-slate-900/60 border border-white/5 text-[10px] sm:text-xs font-mono mb-4">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
           <div className="flex items-center gap-1.5">
-            <span className="w-3 h-3 rounded-sm bg-slate-800 border border-slate-700" />
-            <span className="text-slate-400 text-[11px]">Available</span>
+            <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-sm bg-slate-800 border border-slate-700" />
+            <span className="text-slate-400 text-[10px] sm:text-[11px]">Available</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="w-3 h-3 rounded-sm bg-cyan-500 border border-cyan-300" />
-            <span className="text-cyan-300 text-[11px]">Your Hold</span>
+            <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-sm bg-cyan-500 border border-cyan-300" />
+            <span className="text-cyan-300 text-[10px] sm:text-[11px]">Hold</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="w-3 h-3 rounded-sm bg-rose-950 border border-rose-500" />
-            <span className="text-rose-400 text-[11px]">Locked (Peer)</span>
+            <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-sm bg-rose-950 border border-rose-500" />
+            <span className="text-rose-400 text-[10px] sm:text-[11px]">Locked</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="w-3 h-3 rounded-sm bg-slate-900 border border-slate-800" />
-            <span className="text-slate-500 text-[11px]">Durable Booked</span>
+            <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-sm bg-slate-900 border border-slate-800" />
+            <span className="text-slate-500 text-[10px] sm:text-[11px]">Booked</span>
           </div>
         </div>
 
         {activeHoldTimer !== null && (
-          <div className="flex items-center gap-1.5 text-amber-300 bg-amber-950/60 px-2.5 py-1 rounded border border-amber-500/40">
+          <div className="flex items-center gap-1.5 text-amber-300 bg-amber-950/60 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded border border-amber-500/40 text-[10px] sm:text-xs">
             <Clock className="w-3 h-3 animate-spin" />
-            <span>Hold Expiring in: {activeHoldTimer}s</span>
+            <span>Hold: {activeHoldTimer}s</span>
           </div>
         )}
       </div>
 
       {/* Simulated Live WebSocket Terminal Logs */}
-      <div className="rounded-lg bg-black/80 border border-white/10 p-3 font-mono text-[11px] text-slate-300 space-y-1">
+      <div className="rounded-lg bg-black/80 border border-white/10 p-2.5 sm:p-3 font-mono text-[10px] sm:text-[11px] text-slate-300 space-y-1 overflow-hidden">
         <div className="flex items-center justify-between text-slate-500 border-b border-white/5 pb-1 mb-1">
-          <span className="flex items-center gap-1.5">
-            <Zap className="w-3 h-3 text-cyan-400" />
-            <span>Channels Consumer Log Stream</span>
+          <span className="flex items-center gap-1.5 truncate">
+            <Zap className="w-3 h-3 text-cyan-400 shrink-0" />
+            <span className="truncate">Channels Log Stream</span>
           </span>
-          <span className="text-[10px] text-emerald-400">STATE: PUSH_FULL_SNAPSHOT</span>
+          <span className="text-[9px] sm:text-[10px] text-emerald-400 shrink-0 ml-2">PUSH_SNAPSHOT</span>
         </div>
         {wsLogs.map((log, index) => (
-          <div key={index} className="truncate flex items-start gap-2">
+          <div key={index} className="truncate flex items-start gap-1.5">
             <span className="text-cyan-500 select-none">&gt;</span>
-            <span className={log.includes('COLLISION') ? 'text-rose-400 font-semibold' : log.includes('Row-level') ? 'text-emerald-300' : 'text-slate-300'}>
+            <span className={`truncate ${log.includes('COLLISION') ? 'text-rose-400 font-semibold' : log.includes('Row-level') ? 'text-emerald-300' : 'text-slate-300'}`}>
               {log}
             </span>
           </div>

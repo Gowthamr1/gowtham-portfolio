@@ -54,25 +54,25 @@ export const Skills: React.FC = () => {
         </div>
 
         {/* Categories Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           {PORTFOLIO_DATA.skillCategories.map((cat, idx) => (
             <div
               key={cat.title}
-              className="rounded-2xl border border-white/10 bg-[#0c1222]/90 p-6 hover:border-cyan-500/30 transition-all"
+              className="rounded-xl sm:rounded-2xl border border-white/10 bg-[#0c1222]/90 p-4 sm:p-6 hover:border-cyan-500/30 transition-all"
             >
               {/* Category Title */}
               <div className="flex items-center gap-2.5 mb-1 pb-3 border-b border-white/5">
-                <div className="p-2 rounded-lg bg-white/5 border border-white/10">
+                <div className="p-1.5 sm:p-2 rounded-lg bg-white/5 border border-white/10">
                   {getCategoryIcon(idx)}
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-slate-100">{cat.title}</h3>
-                  <p className="text-[11px] font-mono text-slate-400">{cat.subtitle}</p>
+                  <h3 className="text-sm sm:text-base font-bold text-slate-100">{cat.title}</h3>
+                  <p className="text-[10px] sm:text-[11px] font-mono text-slate-400">{cat.subtitle}</p>
                 </div>
               </div>
 
               {/* Skills Chips */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mt-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5 mt-3 sm:mt-4">
                 {cat.skills.map((skill) => (
                   <div
                     key={skill.name}
@@ -85,7 +85,7 @@ export const Skills: React.FC = () => {
                       });
                     }}
                     onMouseEnter={() => sound.playHover()}
-                    className="p-3 rounded-xl border border-white/5 bg-slate-950/60 hover:bg-slate-900/80 hover:border-cyan-500/40 cursor-pointer transition-all group"
+                    className="p-2.5 sm:p-3 rounded-lg sm:rounded-xl border border-white/5 bg-slate-950/60 hover:bg-slate-900/80 hover:border-cyan-500/40 cursor-pointer transition-all group"
                   >
                     <div className="flex items-center justify-between mb-1">
                       <span className="font-mono text-xs font-semibold text-slate-200 group-hover:text-cyan-300 transition-colors">
@@ -101,7 +101,7 @@ export const Skills: React.FC = () => {
                         {skill.level}
                       </span>
                     </div>
-                    <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed">
+                    <p className="text-[10px] sm:text-[11px] text-slate-400 line-clamp-2 leading-relaxed">
                       {skill.proof}
                     </p>
                   </div>

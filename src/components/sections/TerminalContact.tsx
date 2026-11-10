@@ -174,24 +174,24 @@ export const TerminalContact: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
           {/* CLI Terminal Console */}
-          <div className="lg:col-span-7 rounded-2xl border border-cyan-500/30 bg-slate-950 p-5 font-mono shadow-[0_0_30px_rgba(6,182,212,0.1)]">
+          <div className="lg:col-span-7 rounded-xl sm:rounded-2xl border border-cyan-500/30 bg-slate-950 p-3.5 sm:p-5 font-mono shadow-[0_0_30px_rgba(6,182,212,0.1)]">
             {/* Terminal Top Window Bar */}
-            <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-4 text-xs text-slate-400">
+            <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-3 sm:mb-4 text-xs text-slate-400">
               <div className="flex items-center gap-2">
                 <div className="flex space-x-1.5">
                   <div className="w-2.5 h-2.5 rounded-full bg-rose-500" />
                   <div className="w-2.5 h-2.5 rounded-full bg-amber-500" />
                   <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
                 </div>
-                <span>gowtham@command-center:~</span>
+                <span className="truncate">gowtham@command-center:~</span>
               </div>
-              <span className="text-[11px] text-cyan-400">active::session</span>
+              <span className="text-[10px] sm:text-[11px] text-cyan-400 shrink-0">active::session</span>
             </div>
 
             {/* Terminal Body */}
-              <div ref={terminalBodyRef} className="min-h-[260px] max-h-[360px] overflow-y-auto space-y-3 text-xs pr-2">
+              <div ref={terminalBodyRef} className="min-h-[200px] max-h-[300px] sm:min-h-[260px] sm:max-h-[360px] overflow-y-auto space-y-3 text-[11px] sm:text-xs pr-2">
               {history.map((item) => (
                 <div key={item.id} className="space-y-1">
                   {item.command && (
@@ -200,7 +200,7 @@ export const TerminalContact: React.FC = () => {
                       <span className="font-semibold">{item.command}</span>
                     </div>
                   )}
-                  <div className="pl-4">{item.response}</div>
+                  <div className="pl-3 sm:pl-4">{item.response}</div>
                 </div>
               ))}
               </div>
@@ -212,7 +212,7 @@ export const TerminalContact: React.FC = () => {
                 handleCommand(inputVal);
                 setInputVal('');
               }}
-              className="mt-4 pt-3 border-t border-white/10 flex items-center gap-2 text-xs"
+              className="mt-3 sm:mt-4 pt-3 border-t border-white/10 flex items-center gap-2 text-xs"
             >
               <span className="text-emerald-400 font-bold">&gt;</span>
               <input
@@ -223,11 +223,11 @@ export const TerminalContact: React.FC = () => {
                   setInputVal(e.target.value);
                 }}
                 placeholder="type 'help', 'systems', 'skills', or 'contact'..."
-                className="w-full bg-transparent text-slate-100 outline-none font-mono placeholder:text-slate-600"
+                className="w-full bg-transparent text-slate-100 outline-none font-mono text-sm sm:text-xs placeholder:text-slate-600"
               />
               <button
                 type="submit"
-                className="px-2.5 py-1 rounded bg-white/5 hover:bg-white/10 text-cyan-400 text-[11px]"
+                className="px-2.5 py-1 rounded bg-white/5 hover:bg-white/10 text-cyan-400 text-[11px] shrink-0"
               >
                 ENTER
               </button>
@@ -235,9 +235,9 @@ export const TerminalContact: React.FC = () => {
           </div>
 
           {/* Quick-Connect Cards */}
-          <div className="lg:col-span-5 space-y-4">
+          <div className="lg:col-span-5 space-y-3 sm:space-y-4">
             {/* Direct Email Card with 1-Click Copy */}
-            <div className="p-5 rounded-2xl border border-white/10 bg-[#0c1222]/90">
+            <div className="p-4 sm:p-5 rounded-xl sm:rounded-2xl border border-white/10 bg-[#0c1222]/90">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs font-mono text-slate-400 flex items-center gap-1.5">
                   <Mail className="w-3.5 h-3.5 text-cyan-400" />
@@ -248,62 +248,63 @@ export const TerminalContact: React.FC = () => {
                 </span>
               </div>
 
-              <div className="flex items-center justify-between gap-3 mt-3">
+              <div className="flex items-center justify-between gap-2 sm:gap-3 mt-2 sm:mt-3">
                 <a
                   href={`mailto:${PORTFOLIO_DATA.profile.email}`}
                   onClick={() => sound.playClick()}
-                  className="font-mono text-sm sm:text-base font-bold text-white hover:text-cyan-300 transition-colors truncate"
+                  className="font-mono text-xs sm:text-sm md:text-base font-bold text-white hover:text-cyan-300 transition-colors truncate"
                 >
                   {PORTFOLIO_DATA.profile.email}
                 </a>
 
                 <button
                   onClick={copyEmail}
-                  className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-cyan-300 border border-white/10 transition-colors shrink-0"
+                  className="p-1.5 sm:p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-cyan-300 border border-white/10 transition-colors shrink-0"
                   title="Copy email to clipboard"
+                  aria-label="Copy email"
                 >
                   {copiedEmail ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
                 </button>
               </div>
 
               {copiedEmail && (
-                <p className="text-[11px] font-mono text-emerald-400 mt-2 animate-fadeIn">
+                <p className="text-[10px] sm:text-[11px] font-mono text-emerald-400 mt-2 animate-fadeIn">
                   ✓ Email copied to clipboard!
                 </p>
               )}
               {copyFailed && (
-                <p className="text-[11px] font-mono text-amber-300 mt-2 animate-fadeIn">
+                <p className="text-[10px] sm:text-[11px] font-mono text-amber-300 mt-2 animate-fadeIn">
                   Copy was blocked — select the email address manually.
                 </p>
               )}
             </div>
 
             {/* Direct Phone Card */}
-            <div className="p-5 rounded-2xl border border-white/10 bg-[#0c1222]/90">
-              <span className="text-xs font-mono text-slate-400 flex items-center gap-1.5 mb-2">
+            <div className="p-4 sm:p-5 rounded-xl sm:rounded-2xl border border-white/10 bg-[#0c1222]/90">
+              <span className="text-xs font-mono text-slate-400 flex items-center gap-1.5 mb-1.5 sm:mb-2">
                 <Phone className="w-3.5 h-3.5 text-emerald-400" />
                 <span>Direct Mobile (E.164)</span>
               </span>
               <a
                 href={`tel:${PORTFOLIO_DATA.profile.phone}`}
                 onClick={() => sound.playClick()}
-                className="font-mono text-base font-bold text-white hover:text-emerald-400 transition-colors block mt-1"
+                className="font-mono text-sm sm:text-base font-bold text-white hover:text-emerald-400 transition-colors block mt-1"
               >
                 {PORTFOLIO_DATA.profile.phoneFormatted}
               </a>
-              <p className="text-xs text-slate-500 font-mono mt-1">
+              <p className="text-[11px] sm:text-xs text-slate-500 font-mono mt-1">
                 India (IST / UTC+5:30) · Direct Voice & WhatsApp
               </p>
             </div>
 
             {/* Social & Resume Links */}
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
               <a
                 href={PORTFOLIO_DATA.profile.github}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => sound.playClick()}
-                className="p-4 rounded-xl border border-white/10 bg-slate-900/40 hover:bg-slate-900/80 hover:border-cyan-500/40 transition-all flex items-center gap-2.5 text-xs font-mono text-slate-200"
+                className="p-3.5 sm:p-4 rounded-xl border border-white/10 bg-slate-900/40 hover:bg-slate-900/80 hover:border-cyan-500/40 transition-all flex items-center gap-2.5 text-xs font-mono text-slate-200"
               >
                 <GithubIcon className="w-4 h-4 text-cyan-400" />
                 <span>GitHub Repos</span>
@@ -314,7 +315,7 @@ export const TerminalContact: React.FC = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => sound.playClick()}
-                className="p-4 rounded-xl border border-white/10 bg-slate-900/40 hover:bg-slate-900/80 hover:border-cyan-500/40 transition-all flex items-center gap-2.5 text-xs font-mono text-slate-200"
+                className="p-3.5 sm:p-4 rounded-xl border border-white/10 bg-slate-900/40 hover:bg-slate-900/80 hover:border-cyan-500/40 transition-all flex items-center gap-2.5 text-xs font-mono text-slate-200"
               >
                 <LinkedinIcon className="w-4 h-4 text-cyan-400" />
                 <span>LinkedIn</span>
@@ -326,7 +327,7 @@ export const TerminalContact: React.FC = () => {
               href={`/${PORTFOLIO_DATA.profile.resumeFile}`}
               download
               onClick={() => sound.playSuccess()}
-              className="w-full p-4 rounded-xl bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-400 hover:to-sky-400 text-slate-950 font-mono text-xs font-bold transition-all shadow-[0_0_25px_rgba(6,182,212,0.3)] flex items-center justify-center gap-2"
+              className="w-full p-3.5 sm:p-4 rounded-xl bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-400 hover:to-sky-400 text-slate-950 font-mono text-xs font-bold transition-all shadow-[0_0_25px_rgba(6,182,212,0.3)] flex items-center justify-center gap-2"
             >
               <FileDown className="w-4 h-4" />
               <span>Download Official Resume (PDF)</span>

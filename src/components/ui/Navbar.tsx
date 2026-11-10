@@ -28,24 +28,24 @@ export const Navbar: React.FC = () => {
 
   return (
     <header className="nav-shell fixed top-0 left-0 right-0 z-40">
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-14 h-[76px] flex items-center justify-between">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-14 h-16 sm:h-[76px] flex items-center justify-between">
         {/* Brand & Telemetry Badge */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 min-w-0">
           <a
             href="#hero"
             onClick={() => sound.playClick()}
-            className="nav-brand flex items-center gap-2.5 group"
+            className="nav-brand flex items-center gap-2 sm:gap-2.5 group min-w-0"
           >
-            <div className="nav-brand__mark w-8 h-8 rounded-full flex items-center justify-center text-cyan-400 transition-all">
-              <Cpu className="w-4 h-4" />
+            <div className="nav-brand__mark w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-cyan-400 transition-all shrink-0">
+              <Cpu className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </div>
-            <span className="font-mono font-bold text-sm tracking-wider text-slate-100 group-hover:text-cyan-300 transition-colors">
+            <span className="font-mono font-bold text-xs sm:text-sm tracking-wider text-slate-100 group-hover:text-cyan-300 transition-colors truncate">
               {PORTFOLIO_DATA.profile.name}
             </span>
           </a>
 
           {/* Telemetry Pill */}
-          <div className="nav-availability hidden lg:flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-mono text-emerald-400">
+          <div className="nav-availability hidden lg:flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-mono text-emerald-400 shrink-0">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
@@ -70,19 +70,21 @@ export const Navbar: React.FC = () => {
         </nav>
 
         {/* Action Controls: Audio Toggle + Resume CTA */}
-        <div className="flex items-center gap-2.5">
-          <CommandPalette />
+        <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+          <div className="hidden sm:block">
+            <CommandPalette />
+          </div>
           {/* Audio FX Toggle */}
           <button
             onClick={toggleSound}
-            className={`nav-sound p-2 rounded-lg border transition-all ${
+            className={`nav-sound p-1.5 sm:p-2 rounded-lg border transition-all ${
               isMuted
                 ? 'border-slate-800 bg-slate-900/50 text-slate-500 hover:text-slate-300'
                 : 'border-cyan-500/40 bg-cyan-950/40 text-cyan-300 shadow-[0_0_12px_rgba(6,182,212,0.2)]'
             }`}
             title={isMuted ? 'Unmute Audio FX' : 'Mute Audio FX'}
           >
-            {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+            {isMuted ? <VolumeX className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> : <Volume2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
           </button>
 
           {/* Resume PDF Download */}
@@ -90,7 +92,7 @@ export const Navbar: React.FC = () => {
             href={`/${PORTFOLIO_DATA.profile.resumeFile}`}
             download
             onClick={() => sound.playSuccess()}
-            className="nav-resume flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-mono text-xs font-semibold transition-all hover:scale-105 active:scale-95"
+            className="nav-resume flex items-center gap-1.5 px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-mono text-xs font-semibold transition-all hover:scale-105 active:scale-95"
           >
             <FileDown className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Resume</span>
@@ -102,7 +104,8 @@ export const Navbar: React.FC = () => {
               sound.playClick();
               setIsMobileMenuOpen(!isMobileMenuOpen);
             }}
-             className="md:hidden p-2 rounded-lg bg-white/5 border border-white/10 text-slate-300"
+             className="md:hidden p-1.5 sm:p-2 rounded-lg bg-white/5 border border-white/10 text-slate-300"
+             aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
           </button>
@@ -111,20 +114,25 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Drawer Menu */}
       {isMobileMenuOpen && (
-         <div className="nav-mobile md:hidden border-b border-white/10 bg-[#030712]/98 px-4 py-4 space-y-2 animate-fadeIn">
+         <div className="nav-mobile md:hidden border-b border-white/10 bg-[#030712]/98 px-4 py-4 space-y-2 animate-fadeIn max-h-[calc(100vh-64px)] overflow-y-auto">
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
               onClick={handleLinkClick}
-              className="block px-3 py-2 rounded-lg text-sm font-mono text-slate-300 hover:bg-white/5 hover:text-cyan-300 transition-colors"
+              className="block px-3 py-2.5 rounded-lg text-sm font-mono text-slate-300 hover:bg-white/5 hover:text-cyan-300 transition-colors"
             >
               {link.label}
             </a>
           ))}
-          <div className="pt-2 border-t border-white/5 flex items-center justify-between text-xs font-mono text-slate-400">
-            <span>Location: Bangalore (UTC+5:30)</span>
-            <span className="text-emerald-400 font-semibold">Available</span>
+          <div className="pt-3 border-t border-white/10 flex flex-col gap-2">
+            <div className="sm:hidden w-full">
+              <CommandPalette />
+            </div>
+            <div className="flex items-center justify-between text-xs font-mono text-slate-400 pt-1">
+              <span>Bangalore (IST)</span>
+              <span className="text-emerald-400 font-semibold">● Open to roles</span>
+            </div>
           </div>
         </div>
       )}
